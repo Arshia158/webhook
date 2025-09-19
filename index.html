@@ -1,1 +1,366 @@
-soon...
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت وبهوک تلگرام</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --md-sys-color-primary: #89b4fa; 
+            --md-sys-color-on-primary: #003062; 
+            --md-sys-color-primary-container: #00468a; 
+            --md-sys-color-on-primary-container: #d6e3ff; 
+            --md-sys-color-background: #1a1c1e; 
+            --md-sys-color-on-background: #e3e2e6; 
+            --md-sys-color-surface: #1a1c1e; 
+            --md-sys-color-on-surface: #e3e2e6; 
+            --md-sys-color-surface-variant: #44474f; 
+            --md-sys-color-on-surface-variant: #c4c6d0; 
+            --md-sys-color-outline: #5a5d64; 
+            --md-sys-color-surface-container: #202225; 
+            --md-sys-color-surface-container-high: #292a2d; 
+            --md-sys-color-surface-container-higher: #333538; 
+            --md-sys-color-error: #ffb4ab; 
+            --md-sys-color-error-container: #93000a; 
+            --md-sys-color-on-error-container: #ffdad6; 
+            --md-sys-color-success: #81d89a; 
+            --md-sys-color-success-container: #005327; 
+            --md-sys-color-on-success-container: #9cf5b4; 
+            --font-family: 'Vazirmatn', sans-serif; 
+            --border-radius-xl: 28px; 
+            --border-radius-large: 16px; 
+            --border-radius-medium: 12px; 
+            --border-radius-small: 8px; 
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        html { 
+            -webkit-tap-highlight-color: transparent; 
+            font-size: 15px; 
+        }
+
+        body { 
+            font-family: var(--font-family); 
+            background-color: var(--md-sys-color-background); 
+            color: var(--md-sys-color-on-background); 
+            line-height: 1.7; 
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--md-sys-color-primary);
+            outline-offset: 2px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--md-sys-color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .form-container { 
+            background-color: var(--md-sys-color-surface-container); 
+            padding: 2rem; 
+            border-radius: var(--border-radius-large); 
+            border: 1px solid var(--md-sys-color-outline); 
+            margin-bottom: 2rem;
+        }
+
+        .form-group { 
+            margin-bottom: 1.5rem; 
+        }
+
+        .form-group label { 
+            display: block; 
+            margin-bottom: 0.5rem; 
+            color: var(--md-sys-color-on-surface-variant); 
+            font-weight: 500; 
+        }
+        
+        input[type="url"], input[type="text"] {
+            width: 100%; 
+            padding: 0.75rem 1rem; 
+            background-color: var(--md-sys-color-surface-container-high);
+            border: 1px solid var(--md-sys-color-outline); 
+            border-radius: var(--border-radius-medium); 
+            color: var(--md-sys-color-on-surface);
+            font-family: var(--font-family); 
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s; 
+            text-align: left; 
+            direction: ltr;
+        }
+
+        input[type="url"]:focus, input[type="text"]:focus { 
+            outline: none; 
+            border-color: var(--md-sys-color-primary); 
+            box-shadow: 0 0 0 3px rgba(137, 180, 250, 0.3); 
+        }
+        
+        .btn {
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius-xl);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            display: inline-block;
+            font-weight: 700;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        .btn-danger {
+            background-color: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+        }
+
+        .btn-danger:hover {
+            background-color: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error-container);
+        }
+
+        .response-wrapper { 
+            margin-top: 2rem; 
+        }
+
+        .response-wrapper h3 { 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+            font-weight: 600; 
+            color: var(--md-sys-color-on-surface);
+        }
+        
+        #message-area { 
+            margin-bottom: 1rem; 
+        }
+
+        .message { 
+            padding: 1rem; 
+            border-radius: var(--border-radius-medium); 
+            text-align: center; 
+            color: white; 
+            border: 1px solid transparent; 
+        }
+
+        .message.success { 
+            background-color: var(--md-sys-color-success-container); 
+            border-color: var(--md-sys-color-success); 
+            color: var(--md-sys-color-on-success-container);
+        }
+
+        .message.error { 
+            background-color: var(--md-sys-color-error-container); 
+            border-color: var(--md-sys-color-error); 
+            color: var(--md-sys-color-on-error-container);
+        }
+
+        #response-box { 
+            padding: 1.5rem; 
+            border: 1px solid var(--md-sys-color-outline); 
+            border-radius: var(--border-radius-large); 
+            min-height: 200px; 
+            background-color: var(--md-sys-color-surface-container-high); 
+            overflow-x: auto; 
+            direction: ltr;
+            tab-index: 0;
+        }
+
+        #response-box pre { 
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+            color: var(--md-sys-color-on-surface); 
+            font-family: 'SF Mono', 'Consolas', monospace; 
+            font-size: 0.9rem; 
+            line-height: 1.7; 
+        }
+        
+        .loader { 
+            display: none; 
+            margin: 2rem auto; 
+            width: 32px; 
+            height: 32px; 
+            border: 4px solid var(--md-sys-color-primary); 
+            border-bottom-color: transparent; 
+            border-radius: 50%; 
+            animation: rotation 1s linear infinite; 
+        }
+
+        @keyframes rotation { 
+            to { transform: rotate(360deg); } 
+        }
+
+        .form-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--md-sys-color-on-surface);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-title svg {
+            width: 24px;
+            height: 24px;
+            color: var(--md-sys-color-primary);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .page-header h1 { font-size: 2rem; }
+            .form-container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>مدیریت وبهوک تلگرام</h1>
+            <p>تنظیم یا حذف وبهوک برای ربات تلگرام خود</p>
+        </div>
+
+        <div class="form-container">
+            <h2 class="form-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                </svg>
+                تنظیم وبهوک
+            </h2>
+            
+            <form id="set-webhook-form" aria-label="فرم تنظیم وبهوک">
+                <div class="form-group">
+                    <label for="set-token">توکن ربات</label>
+                    <input type="text" id="set-token" required aria-describedby="token-help">
+                    <small id="token-help" class="form-text text-muted">توکن ربات تلگرام خود را وارد کنید</small>
+                </div>
+                <div class="form-group">
+                    <label for="webhook-url">لینک وبهوک</label>
+                    <input type="url" id="webhook-url" required aria-describedby="webhook-help">
+                    <small id="webhook-help" class="form-text text-muted">آدرس URL برای دریافت به‌روزرسانی‌ها</small>
+                </div>
+                <button type="submit" class="btn btn-primary">تنظیم وبهوک</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2 class="form-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                </svg>
+                حذف وبهوک
+            </h2>
+            
+            <form id="delete-webhook-form" aria-label="فرم حذف وبهوک">
+                <div class="form-group">
+                    <label for="delete-token">توکن ربات</label>
+                    <input type="text" id="delete-token" required aria-describedby="delete-token-help">
+                    <small id="delete-token-help" class="form-text text-muted">توکن ربات تلگرام خود را وارد کنید</small>
+                </div>
+                <button type="submit" class="btn btn-danger">حذف وبهوک</button>
+            </form>
+        </div>
+        
+        <div class="response-wrapper" role="region" aria-live="polite" aria-atomic="true">
+            <h3 id="response-title">پاسخ سرور</h3>
+            <div id="loader" class="loader" role="status" aria-hidden="true">
+                <span class="sr-only">در حال بارگذاری...</span>
+            </div>
+            <div id="message-area" role="alert" aria-live="assertive"></div>
+            <div id="response-box" role="region" aria-label="پاسخ API" tabindex="0">
+                <pre>پاسخ در اینجا نمایش داده می‌شود...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader');
+            const messageArea = document.getElementById('message-area');
+            const responseBox = document.getElementById('response-box');
+            
+            const setWebhookForm = document.getElementById('set-webhook-form');
+            const deleteWebhookForm = document.getElementById('delete-webhook-form');
+
+            const executeApiCall = async (apiUrl, method) => {
+                loader.style.display = 'block';
+                loader.setAttribute('aria-hidden', 'false');
+                messageArea.innerHTML = '';
+                responseBox.innerHTML = `<pre>در حال ارسال درخواست...</pre>`;
+                responseBox.scrollIntoView({ behavior: 'smooth' });
+
+                try {
+                    const formData = new FormData();
+                    formData.append('apiUrl', apiUrl);
+                    formData.append('requestMethod', method);
+
+                    const response = await fetch('', { method: 'POST', body: formData });
+                    const result = await response.json();
+
+                    if (!response.ok || !result.success) throw new Error(result.message || 'یک خطای ناشناخته رخ داد.');
+                    
+                    messageArea.innerHTML = `<div class="message success">عملیات با موفقیت انجام شد.</div>`;
+                    responseBox.innerHTML = `<pre>${result.body || 'پاسخ دریافتی خالی بود.'}</pre>`;
+                } catch (error) {
+                    messageArea.innerHTML = `<div class="message error">${error.message}</div>`;
+                    responseBox.innerHTML = '<pre>خطا در پردازش درخواست.</pre>';
+                } finally {
+                    loader.style.display = 'none';
+                    loader.setAttribute('aria-hidden', 'true');
+                }
+            };
+            
+            setWebhookForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const token = document.getElementById('set-token').value;
+                const url = document.getElementById('webhook-url').value;
+                const telegramApiUrl = `https://api.telegram.org/bot${token}/setWebhook?url=${encodeURIComponent(url)}`;
+                executeApiCall(telegramApiUrl, 'GET');
+            });
+
+            deleteWebhookForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const token = document.getElementById('delete-token').value;
+                const telegramApiUrl = `https://api.telegram.org/bot${token}/deleteWebhook`;
+                executeApiCall(telegramApiUrl, 'GET');
+            });
+        });
+    </script>
+</body>
+</html>
