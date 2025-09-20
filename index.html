@@ -316,7 +316,7 @@
             const setWebhookForm = document.getElementById('set-webhook-form');
             const deleteWebhookForm = document.getElementById('delete-webhook-form');
 
-            const executeApiCall = async (apiUrl, method) => {
+            const executeApiCall = async (apiUrl, method, data = null) => {
                 loader.style.display = 'block';
                 loader.setAttribute('aria-hidden', 'false');
                 messageArea.innerHTML = '';
@@ -324,13 +324,18 @@
                 responseBox.scrollIntoView({ behavior: 'smooth' });
 
                 try {
-                    const response = await fetch(apiUrl, { 
+                    const options = {
                         method: method,
                         headers: {
                             'Content-Type': 'application/json'
                         }
-                    });
+                    };
                     
+                    if (data) {
+                        options.body = JSON.stringify(data);
+                    }
+                    
+                    const response = await fetch(apiUrl, options);
                     const responseText = await response.text();
                     console.log('Response:', responseText);
                     
@@ -369,15 +374,16 @@
                 e.preventDefault();
                 const token = document.getElementById('set-token').value;
                 const url = document.getElementById('webhook-url').value;
-                const telegramApiUrl = `https://api.telegram.org/bot${token}/setWebhook?url=${encodeURIComponent(url)}`;
-                executeApiCall(telegramApiUrl, 'GET');
+                const telegramApiUrl = `https://api.telegram.org/bot${token}/setWebhook`;
+                const data = { url: url };
+                executeApiCall(telegramApiUrl, 'POST', data);
             });
 
             deleteWebhookForm.addEventListener('submit', e => {
                 e.preventDefault();
                 const token = document.getElementById('delete-token').value;
                 const telegramApiUrl = `https://api.telegram.org/bot${token}/deleteWebhook`;
-                executeApiCall(telegramApiUrl, 'GET');
+                executeApiCall(telegramApiUrl, 'POST');
             });
         });
     </script>
