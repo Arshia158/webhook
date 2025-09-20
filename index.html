@@ -326,18 +326,39 @@
                 responseBox.scrollIntoView({ behavior: 'smooth' });
 
                 try {
-                    const formData = new FormData();
-                    formData.append('apiUrl', apiUrl);
-                    formData.append('requestMethod', method);
-
-                    const response = await fetch('', { method: 'POST', body: formData });
-                    const result = await response.json();
-
-                    if (!response.ok || !result.success) throw new Error(result.message || 'یک خطای ناشناخته رخ داد.');
+                    const response = await fetch(apiUrl, { 
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
                     
-                    messageArea.innerHTML = `<div class="message success">عملیات با موفقیت انجام شد.</div>`;
-                    responseBox.innerHTML = `<pre>${result.body || 'پاسخ دریافتی خالی بود.'}</pre>`;
+                    const responseText = await response.text();
+                    console.log('Response:', responseText);
+                    
+                    if (!response.ok) {
+                        throw new Error(`خطا در ارتباط با سرور: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    let result;
+                    try {
+                        result = JSON.parse(responseText);
+                    } catch (e) {
+                        messageArea.innerHTML = `<div class="message success">درخواست با موفقیت ارسال شد.</div>`;
+                        responseBox.innerHTML = `<pre>${responseText || 'پاسخ خالی دریافت شد.'}</pre>`;
+                        return;
+                    }
+                    
+                    if (result.ok) {
+                        messageArea.innerHTML = `<div class="message success">عملیات با موفقیت انجام شد.</div>`;
+                    } else {
+                        messageArea.innerHTML = `<div class="message error">خطا: ${result.description || 'خطای ناشناخته'}</div>`;
+                    }
+                    
+                    responseBox.innerHTML = `<pre>${JSON.stringify(result, null, 2)}</pre>`;
+                    
                 } catch (error) {
+                    console.error('Error:', error);
                     messageArea.innerHTML = `<div class="message error">${error.message}</div>`;
                     responseBox.innerHTML = '<pre>خطا در پردازش درخواست.</pre>';
                 } finally {
